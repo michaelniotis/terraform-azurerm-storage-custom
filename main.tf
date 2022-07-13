@@ -26,14 +26,10 @@ resource "azurerm_resource_group" "rg" {
 #---------------------------------------------------------
 # Storage Account Creation or selection 
 #----------------------------------------------------------
-resource "random_string" "unique" {
-  length  = 6
-  special = false
-  upper   = false
-}
+
 
 resource "azurerm_storage_account" "storeacc" {
-  name                      = substr(format("sta%s%s", lower(replace(var.storage_account_name, "/[[:^alnum:]]/", "")), random_string.unique.result), 0, 24)
+  name                      = var.storage_account_name
   resource_group_name       = local.resource_group_name
   location                  = local.location
   account_kind              = var.account_kind
@@ -41,7 +37,7 @@ resource "azurerm_storage_account" "storeacc" {
   account_replication_type  = local.account_replication_type
   enable_https_traffic_only = true
   min_tls_version           = var.min_tls_version
-  tags                      = merge({ "ResourceName" = substr(format("sta%s%s", lower(replace(var.storage_account_name, "/[[:^alnum:]]/", "")), random_string.unique.result), 0, 24) }, var.tags, )
+  tags                      = merge({ "ResourceName" = var.storage_account_name }, var.tags, )
 
   dynamic "identity" {
     for_each = var.managed_identity_type != null ? [1] : []
