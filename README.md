@@ -7,6 +7,9 @@ To defines the kind of account, set the argument to `account_kind = "StorageV2"`
 > **[!NOTE]**
 > **This module now supports the meta arguments including `providers`, `depends_on`, `count`, and `for_each`.**
 
+> **[!NOTE]**
+> **This Version uses the Actual "storage_account_name" for the Storage Account name
+
 ## resources are supported
 
 * [Storage Account](https://www.terraform.io/docs/providers/azurerm/r/storage_account.html)
